@@ -1,0 +1,28 @@
+Este é um script Python que usa a biblioteca de aprendizado profundo Keras e a biblioteca de visão computacional OpenCV para construir um sistema de detecção de objetos em tempo real usando uma webcam. Aqui está um detalhamento do código:
+Importando bibliotecas
+O script começa importando as bibliotecas necessárias:
+- keras.models: carrega o modelo Keras de um arquivo
+- cv2: Biblioteca OpenCV para tarefas de visão computacional
+- numpy como np: cálculos numéricos
+Carregando o modelo e as etiquetas
+O script carrega um modelo Keras pré-treinado de um arquivo chamado "keras_Model.h5" usando load_model. O  argumento compile=False significa que o modelo não é compilado novamente, o que é útil ao carregar um modelo pré-treinado.
+O script também carrega os rótulos de um arquivo chamado "labels.txt" usando linhas abertas e de leitura. Os rótulos são armazenados em uma lista chamada class_names.
+Configurando a webcam
+O script configura a webcam usando cv2. VideoCapture(0), onde 0 é o índice de câmera padrão. O  objeto da câmera é usado para capturar imagens da webcam.
+Malha principal
+O script entra em um loop infinito, onde ele:
+1.	Captura uma imagem da webcam usando camera.read().
+2.	Redimensiona a imagem para (224, 224) pixels usando cv2.resize.
+3.	Exibe a imagem em uma janela usando cv2.imshow.
+4.	Converte a imagem em uma matriz NumPy e a remodela para a forma de entrada do modelo usando np.asarray e remodelar.
+5.	Normaliza a matriz de imagem dividindo por 127,5 e subtraindo 1.
+6.	Faz uma previsão usando o modelo carregado e a matriz de imagem normalizada usando model.predict.
+7.	Localiza o índice do valor máximo de previsão usando np.argmax.
+8.	Recupera o nome da classe correspondente da  lista class_names.
+9.	Calcula o escore de confiança multiplicando o valor de previsão por 100.
+10.	Imprime o nome da classe e a pontuação de confiança no console.
+11.	Escuta a entrada do teclado usando cv2.waitKey(1).
+12.	Se o usuário pressionar a tecla Esc (código ASCII 27), o loop quebra.
+Limpeza
+Após as quebras de loop, o script libera a webcam usando camera.release() e fecha todas as janelas OpenCV usando cv2.destroyAllWindows().
+Em resumo, esse script usa um modelo Keras pré-treinado para classificar objetos em tempo real usando uma webcam e exibe os resultados da classificação em uma janela.
